@@ -7,6 +7,7 @@ public class HuffmanTree {
     String decodedString, encodedString, remainingString;
 
     public void encodeFile(String path) {
+        // TODO: handle encoding of 0s and 1s in encodedString
         try {
             this.decodedString = Files.readString(Path.of(path), StandardCharsets.UTF_8);
             this.root = buildTree(decodedString);
@@ -14,8 +15,11 @@ public class HuffmanTree {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path + ".hufftree"));
             oos.writeObject(this.root);
             oos.close();
-            this.encodedString = this.decodedString;
-            this.traverseEncode(root, "");
+            this.encodedString = "";
+            this.remainingString = this.decodedString;
+            while (this.remainingString.length() >= 1)
+                this.traverseEncode(root, "");
+            System.out.println(encodedString);
             Files.writeString(Path.of(path + ".huff"), this.encodedString);
             System.out.println("Encoded to " + path + ".huff");
         } catch (Exception e) {
@@ -78,8 +82,11 @@ public class HuffmanTree {
 
     private void traverseEncode(Node root, String path) {
         if (root != null) {
-            if (root.character != '\0')
-                this.encodedString = this.encodedString.replace(Character.toString(root.character), path);
+            if (this.remainingString.length()>=1 && root.character == this.remainingString.charAt(0))
+            {
+                this.encodedString = this.encodedString + path;
+                this.remainingString = this.remainingString.substring(1);
+            }
             traverseEncode(root.left, path + "0");
             traverseEncode(root.right, path + "1");
         }
