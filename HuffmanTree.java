@@ -3,11 +3,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 
 public class HuffmanTree {
-    Node root;
-    String decodedString, encodedString, remainingString;
+    private Node root;
+    private String decodedString, encodedString, remainingString;
 
     public void encodeFile(String path) {
-        // TODO: handle encoding of 0s and 1s in encodedString
         try {
             this.decodedString = Files.readString(Path.of(path), StandardCharsets.UTF_8);
             this.root = buildTree(decodedString);
@@ -19,7 +18,6 @@ public class HuffmanTree {
             this.remainingString = this.decodedString;
             while (this.remainingString.length() >= 1)
                 this.traverseEncode(root, "");
-            System.out.println(encodedString);
             Files.writeString(Path.of(path + ".huff"), this.encodedString);
             System.out.println("Encoded to " + path + ".huff");
         } catch (Exception e) {
@@ -82,8 +80,7 @@ public class HuffmanTree {
 
     private void traverseEncode(Node root, String path) {
         if (root != null) {
-            if (this.remainingString.length()>=1 && root.character == this.remainingString.charAt(0))
-            {
+            if (this.remainingString.length() >= 1 && root.character == this.remainingString.charAt(0)) {
                 this.encodedString = this.encodedString + path;
                 this.remainingString = this.remainingString.substring(1);
             }

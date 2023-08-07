@@ -13,6 +13,7 @@ public class Huffman {
             switch (choice) {
                 case 4:
                     System.out.println("Bye");
+                    s.close();
                     System.exit(0);
                 case 1:
                     System.out.print("[Encode] Enter file path: ");
