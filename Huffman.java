@@ -28,8 +28,8 @@ public class Huffman {
             String huffmanCode = "";
             for (int i = 0; i < text.length(); i++)
                 huffmanCode += traverseEncode(rootNode, text.charAt(i), "");
-            FileHandler.writeString(huffmanCode, filePath + ".huff");
-            System.out.println(huffmanCode);
+            FileHandler.saveHuff(huffmanCode, filePath + ".huff");
+            // System.out.println(huffmanCode);
             System.out.println("Encoded "+filePath+" to "+filePath+".huff");
             FileHandler.displayFileChange(filePath,filePath+".huff");
         } catch (Exception e) {
@@ -45,10 +45,10 @@ public class Huffman {
                 return;
             }
             rootNode = FileHandler.loadTree(filePath + "tree");
-            String huffmanCode = FileHandler.readString(filePath);
-            System.out.println(huffmanCode);
+            String huffmanCode = FileHandler.loadHuff(filePath);
+            // System.out.println(huffmanCode);
             String text = traverseDecode(rootNode, huffmanCode);
-            System.out.println(text);
+            // System.out.println(text);
             FileHandler.writeString(text, filePath.substring(0, filePath.length() - 5));
             System.out.println("Decoded "+filePath+" to "+filePath.substring(0, filePath.length() - 5));
         } catch (Exception e) {
