@@ -39,7 +39,7 @@ public class FileHandler {
             if (i + 8 < huffmanCode.length())
                 currentByte = Integer.parseInt(huffmanCode.substring(i, i + 8), 2);
             else
-                currentByte = Integer.parseInt(huffmanCode.substring(i), 2);
+                currentByte = Integer.parseInt("1"+huffmanCode.substring(i), 2);
             buffOut.write(currentByte);
         }
         buffOut.close();
@@ -52,9 +52,9 @@ public class FileHandler {
         String text = "";
         for (int i = 0; i < huffFile.length() - 1; i++)
             text += String.format("%08d", Integer.parseInt(Integer.toString(buffIn.read(), 2)));
-        text += String.format("%d", Integer.parseInt(Integer.toString(buffIn.read(), 2)));
+        text += String.format("%d", Integer.parseInt(Integer.toString(buffIn.read(), 2))).substring(1);
         in.close();
-        return text;
+        return text; 
     }
 
     public static void displayFileChange(String file1Path, String file2Path) {

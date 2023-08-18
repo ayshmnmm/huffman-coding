@@ -51,8 +51,9 @@ public class Huffman {
             // System.out.println(text);
             FileHandler.writeString(text, filePath.substring(0, filePath.length() - 5));
             System.out.println("Decoded "+filePath+" to "+filePath.substring(0, filePath.length() - 5));
+            FileHandler.displayFileChange(filePath,filePath.substring(0, filePath.length() - 5));
         } catch (Exception e) {
-            // System.out.println("[ERROR] could not decode: " + e.getMessage());
+            System.out.println("[ERROR] could not decode: " + e.getMessage());
         }
     }
 
@@ -112,6 +113,13 @@ public class Huffman {
         for (int i = 0; i < huffmanForest.length; i++)
             if (huffmanForest[i] != null)
                 rootNode = huffmanForest[i];
+        
+        if (rootNode.left==null && rootNode.right==null) // if only one node in tree add dummy node
+        {
+            HuffmanTree singleNode = rootNode;
+            rootNode = new HuffmanTree(singleNode.frequency);
+            rootNode.left = singleNode;
+        }
     }
 
     private void printTree(HuffmanTree rootNode, String huffmanCode) {
